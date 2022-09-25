@@ -5,7 +5,7 @@ REGISTRY_URL = "http://10.10.1.2:5000"
 
 apt update
 apt upgrade -y
-apt install snapd build-essential make -y
+apt install snapd build-essential make git -y
 snap install microk8s --classic
 microk8s status --wait-ready
 chmod +x make-registry-available.sh
@@ -13,6 +13,11 @@ chmod +x make-registry-available.sh
 
 microk8s stop
 microk8s start
+
+if [ ! -d $OPERATOR_PATH ] 
+then
+    git clone https://github.com/r-hmuller/cr-operator
+fi
 
 cd $OPERATOR_PATH
 make install
