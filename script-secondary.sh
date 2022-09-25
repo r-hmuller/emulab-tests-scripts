@@ -10,4 +10,10 @@ apt update
 apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin apache2-utils -y
 snap install microk8s --classic
 microk8s status --wait-ready
+chmod +x make-registry-available.sh
+. make-registry-available.sh
 
+cd registry
+docker-composer up -d docker-compose.yaml
+
+cd ..
